@@ -14,16 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @RequestMapping("/")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="Developer") String name, Model model) {
         model.addAttribute("name", name);
-        System.out.println("Starting greeting");
-        return "greeting";
-    }
-
-    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
-    public String greetingPost(@RequestParam(value="cn", required=false, defaultValue="World") String cn, Model model) {
-        model.addAttribute("name", cn);
-        System.out.println("Starting greeting");
         return "greeting";
     }
 }
