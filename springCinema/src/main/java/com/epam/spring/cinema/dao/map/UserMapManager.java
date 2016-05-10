@@ -11,6 +11,11 @@ import java.util.Map;
  * Created by Andrey Vaganov on 09.05.2016.
  */
 public class UserMapManager implements UserManager {
+
+    private UserMapManager(User administrator) {
+        MapDB.getInstance().getUserMap().put(administrator.getLogin(), administrator);
+    }
+
     public void save(User user) {
         if (user != null && user.getLogin() != null) {
             MapDB.getInstance().getUserMap().put(user.getLogin(), user);

@@ -9,6 +9,6 @@
         http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <context:component-scan
-            base-package="com.epam.spring.cinema.shell" />
+            base-package="com.epam.spring.cinema" />
 
 </beans>

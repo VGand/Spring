@@ -1,5 +1,6 @@
 package com.epam.spring.cinema.service.impl;
 
+import com.epam.spring.cinema.ApplicationContextProvider;
 import com.epam.spring.cinema.dao.UserManager;
 import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.service.UserService;
@@ -14,6 +15,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserManager userManager;
+
+    @Override
+    public void add(String firstName, String lastName, String email, String login) {
+        User user = ApplicationContextProvider.getApplicationContext().getBean("user", User.class);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setLogin(login);
+        save(user);
+    }
 
     public void save(User user) {
         userManager.save(user);
@@ -33,5 +44,9 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAll() {
         return userManager.getAll();
+    }
+
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
     }
 }

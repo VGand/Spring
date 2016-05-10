@@ -22,7 +22,7 @@ public class Session {
         return session;
     }
 
-    public Role getPermission() {
+    public Role getRole() {
         return role;
     }
 

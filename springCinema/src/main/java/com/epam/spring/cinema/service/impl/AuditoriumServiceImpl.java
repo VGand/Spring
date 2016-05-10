@@ -22,4 +22,8 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     public List<Auditorium> getAll() {
         return auditoriumManager.getAll();
     }
+
+    public void setAuditoriumManager(AuditoriumManager auditoriumManager) {
+        this.auditoriumManager = auditoriumManager;
+    }
 }

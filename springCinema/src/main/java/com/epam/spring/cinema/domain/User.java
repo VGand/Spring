@@ -7,6 +7,19 @@ import com.epam.spring.cinema.session.Role;
  */
 public class User {
 
+    public User() {
+
+    }
+
+    public User(Role role) {
+        this.role = role;
+    }
+
+    private User(String login, Role role) {
+        this.login = login;
+        this.role = role;
+    }
+
     private String firstName;
 
     private String lastName;
@@ -14,6 +27,12 @@ public class User {
     private String email;
 
     private String login;
+
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
 
     public String getLogin() {
         return login;
