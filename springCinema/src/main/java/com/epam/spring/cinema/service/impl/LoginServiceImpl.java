@@ -12,15 +12,20 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LoginServiceImpl implements LoginService {
-    UserService userService;
+    private UserService userService;
 
-    public void login(String login) {
+    public boolean login(String login) {
+        boolean result = false;
         if (login != null) {
             User user = userService.getBuLogin(login);
-            new Session(user.getRole(), user.getLogin());
+            if (user != null) {
+                new Session(user.getRole(), user.getLogin());
+                result = true;
+            }
         } else {
             new Session(Role.USER, null);
         }
+        return result;
     }
 
     public void setUserService(UserService userService) {

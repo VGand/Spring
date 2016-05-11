@@ -14,11 +14,15 @@
     </bean>
 
     <bean name="userConsoleMenu" class="com.epam.spring.cinema.console.impl.UserConsoleMenu">
-
+        <property name="eventService" ref="eventService"/>
+        <property name="bookingService" ref="bookingService"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
     <bean name="adminConsoleMenu" class="com.epam.spring.cinema.console.impl.AdminConsoleMenu">
-
+        <property name="eventService" ref="eventService"/>
+        <property name="auditoriumService" ref="auditoriumService"/>
+        <property name="bookingService" ref="bookingService"/>
     </bean>
 
 </beans>

@@ -2,6 +2,7 @@ package com.epam.spring.cinema.service;
 
 import com.epam.spring.cinema.domain.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    void add(String firstName, String lastName, String email, String login);
+    void add(String firstName, String lastName, String email, String login, LocalDateTime birthday);
 
     void save(User user);
 

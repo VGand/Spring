@@ -5,5 +5,5 @@ package com.epam.spring.cinema.service;
  */
 public interface LoginService {
 
-    void login(String login);
+    boolean login(String login);
 }

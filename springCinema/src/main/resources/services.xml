@@ -10,11 +10,14 @@
     </bean>
 
     <bean name="bookingService" class="com.epam.spring.cinema.service.impl.BookingServiceImpl">
-
+        <property name="eventService" ref="eventService"/>
+        <property name="discountService" ref="discountService"/>
+        <property name="coefficientForHighRating" value="${coefficientForHighRating}"/>
+        <property name="coefficientForVipSits" value="${coefficientForVipSits}"/>
     </bean>
 
     <bean name="eventService" class="com.epam.spring.cinema.service.impl.EventServiceImpl">
-
+        <property name="eventManager" ref="eventManager"/>
     </bean>
 
     <bean name="loginService" class="com.epam.spring.cinema.service.impl.LoginServiceImpl">

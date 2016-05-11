@@ -20,6 +20,8 @@ public class Event {
 
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<LocalDateTime, Auditorium>();
 
+    private List<Ticket> purchasedTickets;
+
     public Long getId() {
         return id;
     }
@@ -66,6 +68,15 @@ public class Event {
 
     public void setAuditoriums(NavigableMap<LocalDateTime, Auditorium> auditoriums) {
         this.auditoriums = auditoriums;
+    }
+
+
+    public List<Ticket> getPurchasedTickets() {
+        return purchasedTickets;
+    }
+
+    public void setPurchasedTickets(List<Ticket> purchasedTickets) {
+        this.purchasedTickets = purchasedTickets;
     }
 
     @Override

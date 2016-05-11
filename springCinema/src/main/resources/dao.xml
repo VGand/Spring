@@ -44,9 +44,13 @@
         <constructor-arg index="1" value="${adminRole}"/>
     </bean>
 
-    <bean name="user" class="com.epam.spring.cinema.domain.User">
+    <bean name="user" class="com.epam.spring.cinema.domain.User" scope="prototype">
         <constructor-arg value="${userRole}"/>
     </bean>
+
+    <bean name="event" class="com.epam.spring.cinema.domain.Event" scope="prototype"/>
+
+    <bean name="ticket" class="com.epam.spring.cinema.domain.Ticket" scope="prototype"/>
 
     <bean name="userManager" class="com.epam.spring.cinema.dao.map.UserMapManager">
         <constructor-arg ref="administrator"/>

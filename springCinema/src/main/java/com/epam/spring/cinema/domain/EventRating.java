@@ -5,9 +5,28 @@ package com.epam.spring.cinema.domain;
  */
 public enum EventRating {
 
-    LOW,
+    LOW("LOW"),
 
-    MID,
+    MID("MID"),
 
-    HIGH;
+    HIGH("HIGH");
+
+    private String sysName;
+
+    private EventRating(String sysName) {
+        this.sysName = sysName;
+    }
+
+    public static EventRating getRatingBySysName(String sysName) {
+        for(EventRating rating : values()) {
+            if (rating.sysName.equals(sysName)) {
+                return rating;
+            }
+        }
+        return null;
+    }
+
+    public String getSysName() {
+        return sysName;
+    }
 }

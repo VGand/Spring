@@ -5,6 +5,15 @@
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean name="discountService" class="com.epam.spring.cinema.service.impl.DiscountServiceImpl"/>
+    <bean name="birthdayStrategy" class="com.epam.spring.cinema.service.impl.discount.BirthdayStrategy"/>
+
+    <bean name="discountService" class="com.epam.spring.cinema.service.impl.discount.DiscountServiceImpl">
+        <property name="discountStrategies">
+            <list>
+                <ref bean="birthdayStrategy"/>
+                <ref bean="birthdayStrategy"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

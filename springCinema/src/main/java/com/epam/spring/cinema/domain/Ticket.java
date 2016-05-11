@@ -15,7 +15,7 @@ public class Ticket {
 
     private LocalDateTime dateTime;
 
-    private long seat;
+    private Long seat;
 
     public Long getId() {
         return id;
@@ -49,11 +49,11 @@ public class Ticket {
         this.dateTime = dateTime;
     }
 
-    public long getSeat() {
+    public Long getSeat() {
         return seat;
     }
 
-    public void setSeat(long seat) {
+    public void setSeat(Long seat) {
         this.seat = seat;
     }
 }
