@@ -10,8 +10,22 @@ import java.time.LocalDateTime;
  * Created by Andrey_Vaganov on 5/11/2016.
  */
 public class Every10thTicketStrategy implements DiscountService {
+
+    private Double baseDiscount;
+
     @Override
     public Double getDiscount(Event event, User user, LocalDateTime from, Integer numberOfTickets) {
-        return null;
+        if (user != null) {
+            Integer purchasedCount = user.getPurchasedTickets().size();
+            //кол-во купленных билотов пользователя после последней скидки
+            Integer countOfAlreadyPurchasedTickets = purchasedCount % 10;
+            return (countOfAlreadyPurchasedTickets + numberOfTickets) / 10 * baseDiscount / numberOfTickets;
+        } else {
+            return numberOfTickets / 10 * baseDiscount / numberOfTickets;
+        }
+    }
+
+    public void setBaseDiscount(Double baseDiscount) {
+        this.baseDiscount = baseDiscount;
     }
 }

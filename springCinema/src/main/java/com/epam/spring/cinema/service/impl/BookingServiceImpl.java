@@ -44,22 +44,20 @@ public class BookingServiceImpl implements BookingService {
 
     public Double getTicketsPrice(Event event, LocalDateTime from, User user, Set<Long> seats) {
         Auditorium auditorium = event.getAuditoriums().get(from);
-        Double totalCost = 0D;
+        Double totalCost = new Double(0);
         for(Long set : seats) {
-            Double cost;
             if (auditorium.getVipSeats().contains(set)) {
-                cost = event.getBasePrice() * coefficientForVipSits;
+                totalCost += event.getBasePrice() * coefficientForVipSits;
             } else {
-                cost = event.getBasePrice();
+                totalCost += event.getBasePrice();
             }
-            Double discount = discountService.getDiscount(event, user, from, seats.size());
-            cost = cost - discount/100 * cost;
-
-            totalCost += cost;
         }
         if (event.getRating() == EventRating.HIGH) {
             totalCost = totalCost * coefficientForHighRating;
         }
+
+        Double discount = discountService.getDiscount(event, user, from, seats.size());
+        totalCost = totalCost - discount/100 * totalCost;
 
         return totalCost;
     }

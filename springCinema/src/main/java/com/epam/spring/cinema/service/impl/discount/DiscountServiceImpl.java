@@ -17,7 +17,7 @@ public class DiscountServiceImpl implements DiscountService {
     private List<DiscountService> discountStrategies;
 
     public Double getDiscount(Event event, User user, LocalDateTime from, Integer numberOfTickets) {
-        Double maxDiscount = 0D;
+        Double maxDiscount = new Double(0);
         for(DiscountService strategy : discountStrategies) {
             Double discount = strategy.getDiscount(event, user, from, numberOfTickets);
             if (discount > maxDiscount) {
