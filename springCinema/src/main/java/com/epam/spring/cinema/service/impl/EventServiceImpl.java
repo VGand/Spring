@@ -65,10 +65,15 @@ public class EventServiceImpl implements EventService {
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
             Event event = iterator.next();
+            Boolean isContains = false;
             for (LocalDateTime dateTime : event.getAirDates()) {
-                if (from.isAfter(from) || to.isBefore(dateTime)) {
-                    iterator.remove();
+                if (from.isBefore(dateTime) && to.isAfter(dateTime)) {
+                    isContains = true;
+                    break;
                 }
+            }
+            if (!isContains) {
+                iterator.remove();
             }
         }
         return events;

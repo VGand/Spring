@@ -28,6 +28,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Ticket createTicket(Event event, LocalDateTime from, User user, Long seatNumber) {
+        //Проверяем доступно ли такое место
+        if (event.getAuditoriums().get(from).getNumberOfSeats() < seatNumber) {
+            return null;
+        }
+
         //Проверяем свободно ли место
         for(Ticket ticket : event.getPurchasedTickets()) {
             if (from.isEqual(ticket.getDateTime()) && seatNumber.equals(ticket.getSeat())) {

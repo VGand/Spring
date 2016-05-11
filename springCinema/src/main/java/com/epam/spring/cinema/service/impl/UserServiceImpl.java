@@ -6,6 +6,7 @@ import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.service.UserService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserManager userManager;
 
     @Override
-    public void add(String firstName, String lastName, String email, String login, LocalDateTime birthday) {
+    public void add(String firstName, String lastName, String email, String login, LocalDate birthday) {
         User user = ApplicationContextProvider.getApplicationContext().getBean("user", User.class);
         user.setFirstName(firstName);
         user.setLastName(lastName);

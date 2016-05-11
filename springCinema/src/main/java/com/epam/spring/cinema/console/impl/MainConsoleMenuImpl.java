@@ -8,8 +8,10 @@ import com.epam.spring.cinema.session.Role;
 import com.epam.spring.cinema.session.Session;
 import com.epam.spring.cinema.util.CinemaDateUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Created by Andrey_Vaganov on 5/10/2016.
@@ -37,48 +39,63 @@ public class MainConsoleMenuImpl implements ConsoleMenu {
             System.out.println();
             switch (command) {
                 case 1: {
-                    String login;
-                    String firstName;
-                    String lastName;
-                    String email;
-                    LocalDateTime birthday;
+                    try {
+                        String login;
+                        String firstName;
+                        String lastName;
+                        String email;
+                        LocalDate birthday;
 
-                    System.out.print("Введите логин: ");
-                    login = scanner.next();
-                    System.out.print("Введите имя пользователя: ");
-                    firstName = scanner.next();
-                    System.out.print("Введите фамилию пользователя: ");
-                    lastName = scanner.next();
-                    System.out.print("Введите email пользователя: ");
+                        System.out.print("Введите логин: ");
+                        login = scanner.next();
+                        System.out.print("Введите имя пользователя: ");
+                        firstName = scanner.next();
+                        System.out.print("Введите фамилию пользователя: ");
+                        lastName = scanner.next();
+                        System.out.print("Введите email пользователя: ");
+                        email = scanner.next();
 
-                    System.out.print("Введите день рождения пользователя (дд.мм.гггг-чч:мм): ");
-                    birthday = CinemaDateUtils.getDateTimeByFormat(scanner.next(), CinemaConstants.DATE_FORMAT);
+                        System.out.print("Введите день рождения пользователя (дд.мм.гггг): ");
+                        birthday = CinemaDateUtils.getDateByFormat(scanner.next(), CinemaConstants.DATE_FORMAT);
 
-                    email = scanner.next();
-                    userService.add(firstName, lastName, email, login, birthday);
-                    System.out.println("Пользователь был успешно добавлен");
+                        userService.add(firstName, lastName, email, login, birthday);
+                        System.out.println("Пользователь был успешно добавлен");
+                    } catch (Exception e) {
+                        System.out.println("Произошла ошибка при регистрации пользователя " + e.getMessage());
+                        scanner.next();
+                    }
                     break;
                 }
                 case 2: {
-                    String login;
-                    System.out.print("Введите логин: ");
-                    login = scanner.next();
-                    boolean result = loginService.login(login);
-                    if (result) {
-                        System.out.println("Добро пожаловать: " + Session.currentSession().getUserLogin());
-                        if (Session.currentSession().getRole() == Role.ADMIN) {
-                            adminConsoleMenu.start(scanner);
+                    try {
+                        String login;
+                        System.out.print("Введите логин: ");
+                        login = scanner.next();
+                        boolean result = loginService.login(login);
+                        if (result) {
+                            System.out.println("Добро пожаловать: " + Session.currentSession().getUserLogin());
+                            if (Session.currentSession().getRole() == Role.ADMIN) {
+                                adminConsoleMenu.start(scanner);
+                            } else {
+                                userConsoleMenu.start(scanner);
+                            }
                         } else {
-                            userConsoleMenu.start(scanner);
+                            System.out.println("Пользователь c таким логином не найден");
                         }
-                    } else {
-                        System.out.println("Пользователь c таким логином не найден");
+                    } catch (Exception e) {
+                        System.out.println("Произошла ошибка при входе пользователя " + e.getMessage());
+                        scanner.next();
                     }
                     break;
                 }
                 case 3: {
-                    loginService.login(null);
-                    userConsoleMenu.start(scanner);
+                    try {
+                        loginService.login(null);
+                        userConsoleMenu.start(scanner);
+                    } catch (Exception e) {
+                        System.out.println("Произошла ошибка при входе пользователя без регистрации" + e.getMessage());
+                        scanner.next();
+                    }
                     break;
                 }
             }

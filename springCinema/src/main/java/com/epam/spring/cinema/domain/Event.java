@@ -20,7 +20,7 @@ public class Event {
 
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<LocalDateTime, Auditorium>();
 
-    private List<Ticket> purchasedTickets;
+    private List<Ticket> purchasedTickets = new ArrayList<Ticket>();
 
     public Long getId() {
         return id;

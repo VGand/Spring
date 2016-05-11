@@ -1,5 +1,6 @@
 package com.epam.spring.cinema.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,5 +12,10 @@ public class CinemaDateUtils {
     public static LocalDateTime getDateTimeByFormat(String str, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(str, formatter);
+    }
+
+    public static LocalDate getDateByFormat(String str, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return LocalDate.parse(str, formatter);
     }
 }

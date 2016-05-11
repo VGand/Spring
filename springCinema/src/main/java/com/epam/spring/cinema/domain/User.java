@@ -2,7 +2,9 @@ package com.epam.spring.cinema.domain;
 
 import com.epam.spring.cinema.session.Role;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class User {
 
     private String firstName;
 
-    private List<Ticket> purchasedTickets;
+    private List<Ticket> purchasedTickets = new ArrayList<Ticket>();
 
     private String lastName;
 
@@ -35,7 +37,7 @@ public class User {
 
     private Role role;
 
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     public Role getRole() {
         return role;
@@ -81,11 +83,11 @@ public class User {
         this.purchasedTickets = purchasedTickets;
     }
 
-    public LocalDateTime getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 }
