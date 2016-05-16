@@ -2,6 +2,7 @@ package com.epam.spring.cinema.dao.map;
 
 import com.epam.spring.cinema.dao.AuditoriumManager;
 import com.epam.spring.cinema.domain.Auditorium;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,9 +12,14 @@ import java.util.Map;
 /**
  * Created by Andrey Vaganov on 09.05.2016.
  */
+@Component
 public class AuditoriumMapManager implements AuditoriumManager {
 
-    private AuditoriumMapManager(List<Auditorium> auditoriums) {
+
+    public AuditoriumMapManager() {
+    }
+
+    public AuditoriumMapManager(List<Auditorium> auditoriums) {
         if (auditoriums != null) {
             Iterator<Auditorium> iterator = auditoriums.iterator();
             while(iterator.hasNext()) {

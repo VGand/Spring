@@ -2,6 +2,7 @@ package com.epam.spring.cinema.dao.map;
 
 import com.epam.spring.cinema.dao.EventManager;
 import com.epam.spring.cinema.domain.Event;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,11 @@ import java.util.Map;
 /**
  * Created by Andrey Vaganov on 09.05.2016.
  */
+@Component
 public class EventMapManager implements EventManager {
+    public EventMapManager() {
+    }
+
     public void save(Event event) {
         if (event != null) {
             if (event.getId() == null) {

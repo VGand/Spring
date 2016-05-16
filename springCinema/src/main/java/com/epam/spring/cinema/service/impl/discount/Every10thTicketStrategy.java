@@ -3,12 +3,14 @@ package com.epam.spring.cinema.service.impl.discount;
 import com.epam.spring.cinema.domain.Event;
 import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.service.DiscountService;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 /**
  * Created by Andrey_Vaganov on 5/11/2016.
  */
+@Component
 public class Every10thTicketStrategy implements DiscountService {
 
     private Double baseDiscount;

@@ -2,6 +2,10 @@ package com.epam.spring.cinema.dao.map;
 
 import com.epam.spring.cinema.dao.UserManager;
 import com.epam.spring.cinema.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +14,11 @@ import java.util.Map;
 /**
  * Created by Andrey Vaganov on 09.05.2016.
  */
+@Component
 public class UserMapManager implements UserManager {
 
-    private UserMapManager(User administrator) {
+    @Autowired
+    private UserMapManager(@Qualifier("administrator") User administrator) {
         MapDB.getInstance().getUserMap().put(administrator.getLogin(), administrator);
     }
 

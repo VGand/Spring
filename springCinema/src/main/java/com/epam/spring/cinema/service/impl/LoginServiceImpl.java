@@ -5,6 +5,7 @@ import com.epam.spring.cinema.service.LoginService;
 import com.epam.spring.cinema.service.UserService;
 import com.epam.spring.cinema.session.Role;
 import com.epam.spring.cinema.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LoginServiceImpl implements LoginService {
+    @Autowired
     private UserService userService;
 
     public boolean login(String login) {

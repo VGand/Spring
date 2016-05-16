@@ -4,6 +4,7 @@ import com.epam.spring.cinema.ApplicationContextProvider;
 import com.epam.spring.cinema.dao.UserManager;
 import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserManager userManager;
 
     @Override

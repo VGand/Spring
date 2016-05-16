@@ -7,6 +7,7 @@ import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.domain.Event;
 import com.epam.spring.cinema.domain.EventRating;
 import com.epam.spring.cinema.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.*;
  */
 @Component
 public class EventServiceImpl implements EventService {
+    @Autowired
     private EventManager eventManager;
 
     @Override

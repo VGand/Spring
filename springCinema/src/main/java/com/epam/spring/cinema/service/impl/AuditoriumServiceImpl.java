@@ -3,6 +3,7 @@ package com.epam.spring.cinema.service.impl;
 import com.epam.spring.cinema.dao.AuditoriumManager;
 import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.service.AuditoriumService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Component
 public class AuditoriumServiceImpl implements AuditoriumService {
 
+    @Autowired
     private AuditoriumManager auditoriumManager;
 
     public Auditorium getByName(String name) {

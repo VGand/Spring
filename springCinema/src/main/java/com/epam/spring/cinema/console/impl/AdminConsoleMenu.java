@@ -10,6 +10,9 @@ import com.epam.spring.cinema.service.AuditoriumService;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.EventService;
 import com.epam.spring.cinema.util.CinemaDateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -20,11 +23,15 @@ import java.util.List;
 /**
  * Created by Andrey_Vaganov on 5/10/2016.
  */
+@Component
 public class AdminConsoleMenu implements ConsoleMenu {
+    @Autowired
     private EventService eventService;
 
+    @Autowired
     private AuditoriumService auditoriumService;
 
+    @Autowired
     private BookingService bookingService;
 
     @Override

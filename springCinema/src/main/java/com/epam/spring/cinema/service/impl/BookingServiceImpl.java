@@ -5,6 +5,8 @@ import com.epam.spring.cinema.domain.*;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.DiscountService;
 import com.epam.spring.cinema.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -18,12 +20,16 @@ import java.util.Set;
 @Component
 public class BookingServiceImpl implements BookingService {
 
+    @Autowired
     private EventService eventService;
 
+    @Autowired
     private DiscountService discountService;
 
+    @Value("${coefficientForHighRating}")
     private Double coefficientForHighRating;
 
+    @Value("${coefficientForVipSits}")
     private Double coefficientForVipSits;
 
     @Override

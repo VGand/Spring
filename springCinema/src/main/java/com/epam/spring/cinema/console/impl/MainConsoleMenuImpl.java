@@ -7,6 +7,9 @@ import com.epam.spring.cinema.service.UserService;
 import com.epam.spring.cinema.session.Role;
 import com.epam.spring.cinema.session.Session;
 import com.epam.spring.cinema.util.CinemaDateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,14 +19,19 @@ import java.util.logging.Logger;
 /**
  * Created by Andrey_Vaganov on 5/10/2016.
  */
+@Component
 public class MainConsoleMenuImpl implements ConsoleMenu {
 
+    @Autowired
     private UserService userService;
 
+    @Autowired
     private LoginService loginService;
 
+    @Autowired
     private ConsoleMenu userConsoleMenu;
 
+    @Autowired
     private ConsoleMenu adminConsoleMenu;
 
     @Override

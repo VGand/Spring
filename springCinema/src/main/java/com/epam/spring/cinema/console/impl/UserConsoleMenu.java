@@ -11,6 +11,9 @@ import com.epam.spring.cinema.service.EventService;
 import com.epam.spring.cinema.service.UserService;
 import com.epam.spring.cinema.session.Session;
 import com.epam.spring.cinema.util.CinemaDateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -18,11 +21,15 @@ import java.util.*;
 /**
  * Created by Andrey_Vaganov on 5/10/2016.
  */
+@Component
 public class UserConsoleMenu implements ConsoleMenu {
+    @Autowired
     EventService eventService;
 
+    @Autowired
     BookingService bookingService;
 
+    @Autowired
     UserService userService;
 
     @Override

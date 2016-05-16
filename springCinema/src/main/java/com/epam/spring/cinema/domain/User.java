@@ -20,7 +20,7 @@ public class User {
         this.role = role;
     }
 
-    private User(String login, Role role) {
+    public User(String login, Role role) {
         this.login = login;
         this.role = role;
     }
