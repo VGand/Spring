@@ -4,6 +4,7 @@ import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.domain.Event;
 import com.epam.spring.cinema.domain.Ticket;
 import com.epam.spring.cinema.domain.User;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
  * Created by Andrey Vaganov on 09.05.2016.
  *
  */
+@Component
 public class MapDB {
     //Мапа с пользователями, ключ - логин пользователя
     private Map<String, User> userMap;
@@ -34,9 +36,7 @@ public class MapDB {
     //Хранит следующий идентификатор для билетов
     private Long ticketSequence;
 
-    private static MapDB mapDB;
-
-    private MapDB() {
+    public MapDB() {
         userMap = new HashMap<String, User>();
         auditoriumMap = new HashMap<Long, Auditorium>();
         eventMap = new HashMap<Long, Event>();
@@ -45,14 +45,6 @@ public class MapDB {
         auditoriumSequence = 0L;
         eventSequence = 0L;
         ticketSequence = 0L;
-    }
-
-    public static MapDB getInstance() {
-        if (mapDB == null) {
-            mapDB = new MapDB();
-        }
-
-        return mapDB;
     }
 
     public Long getNextAuditoriumId() {

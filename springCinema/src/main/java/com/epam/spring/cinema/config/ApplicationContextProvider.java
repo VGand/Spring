@@ -1,4 +1,4 @@
-package com.epam.spring.cinema;
+package com.epam.spring.cinema.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

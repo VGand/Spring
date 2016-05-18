@@ -2,6 +2,7 @@ package com.epam.spring.cinema.dao.map;
 
 import com.epam.spring.cinema.dao.AuditoriumManager;
 import com.epam.spring.cinema.domain.Auditorium;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,31 +16,32 @@ import java.util.Map;
 @Component
 public class AuditoriumMapManager implements AuditoriumManager {
 
+    private MapDB mapDB;
 
-    public AuditoriumMapManager() {
-    }
+    @Autowired
+    public AuditoriumMapManager(List<Auditorium> auditoriums, MapDB mapDB) {
+        this.mapDB = mapDB;
 
-    public AuditoriumMapManager(List<Auditorium> auditoriums) {
         if (auditoriums != null) {
             Iterator<Auditorium> iterator = auditoriums.iterator();
             while(iterator.hasNext()) {
                 Auditorium auditorium = iterator.next();
-                Long id = MapDB.getInstance().getNextAuditoriumId();
+                Long id = this.mapDB.getNextAuditoriumId();
                 auditorium.setId(id);
-                MapDB.getInstance().getAuditoriumMap().put(id, auditorium);
+                this.mapDB.getAuditoriumMap().put(id, auditorium);
             }
         }
     }
 
     public void add(Auditorium auditorium) {
-        Long id = MapDB.getInstance().getNextAuditoriumId();
+        Long id = mapDB.getNextAuditoriumId();
         auditorium.setId(id);
-        MapDB.getInstance().getAuditoriumMap().put(id, auditorium);
+        mapDB.getAuditoriumMap().put(id, auditorium);
     }
 
     public Auditorium getByName(String name) {
         if (name != null) {
-            for(Map.Entry<Long, Auditorium> entry : MapDB.getInstance().getAuditoriumMap().entrySet()) {
+            for(Map.Entry<Long, Auditorium> entry : mapDB.getAuditoriumMap().entrySet()) {
                 if (entry.getValue() != null && name.equals(entry.getValue().getName())) {
                     return entry.getValue();
                 }
@@ -49,6 +51,6 @@ public class AuditoriumMapManager implements AuditoriumManager {
     }
 
     public List<Auditorium> getAll() {
-        return new ArrayList<Auditorium>(MapDB.getInstance().getAuditoriumMap().values());
+        return new ArrayList<Auditorium>(mapDB.getAuditoriumMap().values());
     }
 }

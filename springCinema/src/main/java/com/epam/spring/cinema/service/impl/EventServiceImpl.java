@@ -1,6 +1,5 @@
 package com.epam.spring.cinema.service.impl;
 
-import com.epam.spring.cinema.ApplicationContextProvider;
 import com.epam.spring.cinema.dao.EventManager;
 import com.epam.spring.cinema.dao.map.MapDB;
 import com.epam.spring.cinema.domain.Auditorium;
@@ -18,13 +17,17 @@ import java.util.*;
  */
 @Component
 public class EventServiceImpl implements EventService {
+
+    @Autowired
+    private MapDB mapDB;
+
     @Autowired
     private EventManager eventManager;
 
     @Override
     public void add(String name, double basePrice, NavigableMap<LocalDateTime, Auditorium> auditoriums, EventRating rating) {
-        Event event = ApplicationContextProvider.getApplicationContext().getBean("event", Event.class);
-        Long id = MapDB.getInstance().getNextEventId();
+        Event event = new Event();
+        Long id = mapDB.getNextEventId();
         event.setId(id);
         event.setAirDates(auditoriums.navigableKeySet());
         event.setAuditoriums(auditoriums);
@@ -107,5 +110,9 @@ public class EventServiceImpl implements EventService {
 
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
+    }
+
+    public void setMapDB(MapDB mapDB) {
+        this.mapDB = mapDB;
     }
 }

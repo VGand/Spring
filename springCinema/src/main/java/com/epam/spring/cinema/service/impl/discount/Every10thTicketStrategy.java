@@ -16,7 +16,7 @@ public class Every10thTicketStrategy implements DiscountService {
     private Double baseDiscount;
 
     @Override
-    public Double getDiscount(Event event, User user, LocalDateTime from, Integer numberOfTickets) {
+    public Double getDiscount(User user, Event event, LocalDateTime from, Integer numberOfTickets) {
         if (user != null) {
             Integer purchasedCount = user.getPurchasedTickets().size();
             //кол-во купленных билотов пользователя после последней скидки

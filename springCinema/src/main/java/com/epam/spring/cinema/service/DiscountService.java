@@ -10,5 +10,5 @@ import java.time.LocalDateTime;
  */
 public interface DiscountService {
 
-    Double getDiscount(Event event, User user, LocalDateTime from, Integer numberOfTickets);
+    Double getDiscount(User user, Event event,  LocalDateTime from, Integer numberOfTickets);
 }

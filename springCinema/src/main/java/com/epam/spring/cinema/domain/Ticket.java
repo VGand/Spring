@@ -17,6 +17,8 @@ public class Ticket {
 
     private Long seat;
 
+    private Double ticketPrice;
+
     public Long getId() {
         return id;
     }
@@ -55,5 +57,52 @@ public class Ticket {
 
     public void setSeat(Long seat) {
         this.seat = seat;
+    }
+
+    public Double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(Double ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (id != null ? !id.equals(ticket.id) : ticket.id != null) return false;
+        if (user != null ? !user.equals(ticket.user) : ticket.user != null) return false;
+        if (!event.equals(ticket.event)) return false;
+        if (!dateTime.equals(ticket.dateTime)) return false;
+        if (!seat.equals(ticket.seat)) return false;
+        return ticketPrice != null ? ticketPrice.equals(ticket.ticketPrice) : ticket.ticketPrice == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + user.hashCode();
+        result = 31 * result + event.hashCode();
+        result = 31 * result + dateTime.hashCode();
+        result = 31 * result + seat.hashCode();
+        result = 31 * result + ticketPrice.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", user=" + user +
+                ", event=" + event +
+                ", dateTime=" + dateTime +
+                ", seat=" + seat +
+                ", ticketPrice=" + ticketPrice +
+                '}';
     }
 }

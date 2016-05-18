@@ -1,6 +1,5 @@
 package com.epam.spring.cinema.service.impl;
 
-import com.epam.spring.cinema.ApplicationContextProvider;
 import com.epam.spring.cinema.domain.*;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.DiscountService;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
                 return null;
             }
         }
-        Ticket ticket = ApplicationContextProvider.getApplicationContext().getBean("ticket", Ticket.class);
+        Ticket ticket = new Ticket();
         ticket.setDateTime(from);
         ticket.setEvent(event);
         ticket.setSeat(seatNumber);
@@ -67,7 +67,7 @@ public class BookingServiceImpl implements BookingService {
             totalCost = totalCost * coefficientForHighRating;
         }
 
-        Double discount = discountService.getDiscount(event, user, from, seats.size());
+        Double discount = discountService.getDiscount(user, event, from, seats.size());
         totalCost = totalCost - discount/100 * totalCost;
 
         return totalCost;
@@ -75,6 +75,12 @@ public class BookingServiceImpl implements BookingService {
 
     public Boolean bookTicket(List<Ticket> tickets) {
         for(Ticket ticket : tickets) {
+            Set<Long> ticketSet = new HashSet<>();
+            ticketSet.add(ticket.getSeat());
+
+            Double ticketPrice = getTicketsPrice(ticket.getEvent(), ticket.getDateTime(), ticket.getUser(), ticketSet);
+            ticket.setTicketPrice(ticketPrice);
+
             ticket.getEvent().getPurchasedTickets().add(ticket);
             if (ticket.getUser() != null) {
                 ticket.getUser().getPurchasedTickets().add(ticket);

@@ -1,15 +1,17 @@
-package com.epam.spring.cinema;
+package com.epam.spring.cinema.config;
 
+import com.epam.spring.cinema.console.ConsoleMenu;
+import com.epam.spring.cinema.console.impl.AdminConsoleMenu;
+import com.epam.spring.cinema.console.impl.MainConsoleMenuImpl;
+import com.epam.spring.cinema.console.impl.UserConsoleMenu;
 import com.epam.spring.cinema.dao.AuditoriumManager;
 import com.epam.spring.cinema.dao.map.AuditoriumMapManager;
+import com.epam.spring.cinema.dao.map.MapDB;
 import com.epam.spring.cinema.domain.Auditorium;
-import com.epam.spring.cinema.domain.Event;
-import com.epam.spring.cinema.domain.Ticket;
 import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.session.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Configuration
 @PropertySource("classpath:cinema.properties")
 @ComponentScan("com.epam.spring.cinema")
+@EnableAspectJAutoProxy
 public class CinemaConfig {
 
     @Autowired
@@ -31,6 +34,11 @@ public class CinemaConfig {
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
+    public MapDB mapDB() {
+        return new MapDB();
     }
 
     @Bean
@@ -72,7 +80,7 @@ public class CinemaConfig {
         List<Auditorium> list = new ArrayList<>();
         list.add(firstAuditorium());
         list.add(secondAuditorium());
-        AuditoriumManager auditoriumManager = new AuditoriumMapManager(list);
+        AuditoriumManager auditoriumManager = new AuditoriumMapManager(list, mapDB());
 
         return auditoriumManager;
     }
@@ -94,14 +102,17 @@ public class CinemaConfig {
     }
 
     @Bean
-    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    public Event event(){
-        return new Event();
+    public ConsoleMenu mainConsoleMenu() {
+        return new MainConsoleMenuImpl();
     }
 
     @Bean
-    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-    public Ticket ticket(){
-        return new Ticket();
+    public ConsoleMenu userConsoleMenu() {
+        return new UserConsoleMenu();
+    }
+
+    @Bean
+    public ConsoleMenu adminConsoleMenu() {
+        return new AdminConsoleMenu();
     }
 }

@@ -1,14 +1,11 @@
-package com.epam.spring.cinema;
+package com.epam.spring.cinema.config;
 
-import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.service.DiscountService;
 import com.epam.spring.cinema.service.impl.discount.BirthdayStrategy;
-import com.epam.spring.cinema.service.impl.discount.DiscountServiceImpl;
+import com.epam.spring.cinema.service.impl.DiscountServiceImpl;
 import com.epam.spring.cinema.service.impl.discount.Every10thTicketStrategy;
-import com.epam.spring.cinema.session.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -21,7 +18,6 @@ import java.util.List;
  */
 @Configuration
 @PropertySource("classpath:cinema.properties")
-@ComponentScan("com.epam.spring.cinema")
 public class DiscountConfig {
 
     @Autowired

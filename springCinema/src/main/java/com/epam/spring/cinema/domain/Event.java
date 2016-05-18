@@ -105,4 +105,17 @@ public class Event {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", airDates=" + airDates +
+                ", basePrice=" + basePrice +
+                ", rating=" + rating +
+                ", auditoriums=" + auditoriums +
+                ", purchasedTickets=" + purchasedTickets +
+                '}';
+    }
 }

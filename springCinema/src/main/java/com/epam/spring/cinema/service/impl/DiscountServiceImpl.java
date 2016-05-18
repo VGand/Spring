@@ -1,4 +1,4 @@
-package com.epam.spring.cinema.service.impl.discount;
+package com.epam.spring.cinema.service.impl;
 
 import com.epam.spring.cinema.domain.Event;
 import com.epam.spring.cinema.domain.User;
@@ -16,10 +16,10 @@ public class DiscountServiceImpl implements DiscountService {
 
     private List<DiscountService> discountStrategies;
 
-    public Double getDiscount(Event event, User user, LocalDateTime from, Integer numberOfTickets) {
+    public Double getDiscount(User user, Event event, LocalDateTime from, Integer numberOfTickets) {
         Double maxDiscount = new Double(0);
         for(DiscountService strategy : discountStrategies) {
-            Double discount = strategy.getDiscount(event, user, from, numberOfTickets);
+            Double discount = strategy.getDiscount(user, event, from, numberOfTickets);
             if (discount > maxDiscount) {
                 maxDiscount = discount;
             }

@@ -12,18 +12,8 @@
 
     <properties>
         <spring.ver>4.2.6.RELEASE</spring.ver>
+        <aspectj.ver>1.8.9</aspectj.ver>
     </properties>
-
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>libs-release</name>
-            <url>http://repo.springsource.org/libs-release</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
@@ -42,9 +32,9 @@
             <version>${spring.ver}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell</artifactId>
-            <version>1.0.0.RELEASE</version>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.ver}</version>
         </dependency>
 
     </dependencies>

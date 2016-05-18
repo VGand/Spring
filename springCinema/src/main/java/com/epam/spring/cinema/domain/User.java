@@ -3,7 +3,6 @@ package com.epam.spring.cinema.domain;
 import com.epam.spring.cinema.session.Role;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,8 @@ public class User {
     private String firstName;
 
     private List<Ticket> purchasedTickets = new ArrayList<Ticket>();
+
+    private List<Ticket> luckyTickets = new ArrayList<>();
 
     private String lastName;
 
@@ -83,11 +84,62 @@ public class User {
         this.purchasedTickets = purchasedTickets;
     }
 
+    public List<Ticket> getLuckyTickets() {
+        return luckyTickets;
+    }
+
+    public void setLuckyTickets(List<Ticket> luckyTickets) {
+        this.luckyTickets = luckyTickets;
+    }
+
     public LocalDate getBirthday() {
         return birthday;
     }
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (purchasedTickets != null ? !purchasedTickets.equals(user.purchasedTickets) : user.purchasedTickets != null)
+            return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (!login.equals(user.login)) return false;
+        if (role != user.role) return false;
+        return birthday != null ? birthday.equals(user.birthday) : user.birthday == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (purchasedTickets != null ? purchasedTickets.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + login.hashCode();
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", purchasedTickets=" + purchasedTickets +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", role=" + role +
+                ", birthday=" + birthday +
+                '}';
     }
 }
