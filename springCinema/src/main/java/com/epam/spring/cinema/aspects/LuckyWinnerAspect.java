@@ -24,6 +24,7 @@ public class LuckyWinnerAspect {
         if (checkLucky()) {
             //is lucky
             for(Ticket ticket : tickets) {
+                printHappyMessage(ticket);
                 ticket.setTicketPrice(new Double(0));
                 ticket.getEvent().getPurchasedTickets().add(ticket);
                 if (ticket.getUser() != null) {
@@ -40,5 +41,15 @@ public class LuckyWinnerAspect {
 
     private Boolean checkLucky() {
         return Math.random() < 0.5;
+    }
+
+    private void printHappyMessage(Ticket ticket) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Был бесплатно продан билет на мероприятие ")
+                .append(ticket.getEvent().getName())
+                .append(" на место ")
+                .append(ticket.getSeat());
+
+        System.out.println(sb.toString());
     }
 }
