@@ -59,4 +59,9 @@ public class TicketMapManager implements TicketManager {
         }
         return tickets;
     }
+
+    @Override
+    public List<Ticket> getTicketByUserLogin(String login) {
+        return null;
+    }
 }

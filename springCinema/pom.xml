@@ -13,6 +13,7 @@
     <properties>
         <spring.ver>4.2.6.RELEASE</spring.ver>
         <aspectj.ver>1.8.9</aspectj.ver>
+        <derby.ver>10.12.1.1</derby.ver>
     </properties>
 
     <dependencies>
@@ -36,7 +37,16 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.ver}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6_g</artifactId>
+            <version>11.2.0.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>

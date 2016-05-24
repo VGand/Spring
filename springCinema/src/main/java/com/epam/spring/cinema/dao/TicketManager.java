@@ -20,4 +20,6 @@ public interface TicketManager {
     List<Ticket> getAll();
 
     List<Ticket> getByEventAndDateTime(Event event, LocalDateTime dateTime);
+
+    List<Ticket> getTicketByUserLogin(String login);
 }
