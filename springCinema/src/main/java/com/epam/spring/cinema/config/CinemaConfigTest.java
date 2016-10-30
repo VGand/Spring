@@ -6,7 +6,10 @@ import com.epam.spring.cinema.console.impl.MainConsoleMenuImpl;
 import com.epam.spring.cinema.console.impl.UserConsoleMenu;
 import com.epam.spring.cinema.dao.*;
 import com.epam.spring.cinema.dao.jdbc.*;
+import com.epam.spring.cinema.dao.map.EventMapManager;
 import com.epam.spring.cinema.dao.map.MapDB;
+import com.epam.spring.cinema.dao.map.TicketMapManager;
+import com.epam.spring.cinema.dao.map.UserMapManager;
 import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.session.Role;
@@ -29,7 +32,7 @@ import java.util.stream.Collectors;
 @PropertySource({"classpath:cinema.properties", "classpath:db.properties"})
 @ComponentScan("com.epam.spring.cinema")
 @EnableAspectJAutoProxy
-public class CinemaConfig {
+public class CinemaConfigTest {
 
     @Autowired
     private Environment env;
@@ -103,17 +106,17 @@ public class CinemaConfig {
 
     @Bean
     public EventManager eventManager() {
-        return new EventJdbcManager();
+        return new EventMapManager();
     }
 
     @Bean
     public TicketManager ticketManager() {
-        return new TicketJdbcManager();
+        return new TicketMapManager();
     }
 
     @Bean
     public UserManager userManager() {
-        return new UserJdbcManager();
+        return new UserMapManager(administrator(), mapDB());
     }
 
     @Bean

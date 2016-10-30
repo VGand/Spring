@@ -1,5 +1,6 @@
 package com.epam.spring.cinema.dao.jdbc;
 
+import com.epam.spring.cinema.dao.TicketManager;
 import com.epam.spring.cinema.dao.UserManager;
 import com.epam.spring.cinema.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UserJdbcManager implements UserManager {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    TicketManager ticketManager;
+
     @Override
     public void save(User user) {
         Date birthday = Date.from(user.getBirthday().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
@@ -39,16 +43,16 @@ public class UserJdbcManager implements UserManager {
 
     @Override
     public User getByLogin(String login) {
-        return jdbcTemplate.queryForObject(SELECT_USER_BY_LOGIN, new Object[]{login}, new UserRowMapper());
+        return jdbcTemplate.queryForObject(SELECT_USER_BY_LOGIN, new Object[]{login}, new UserRowMapper(ticketManager));
     }
 
     @Override
     public User getByEmail(String email) {
-        return jdbcTemplate.queryForObject(SELECT_USER_BY_EMAIL, new Object[]{email}, new UserRowMapper());
+        return jdbcTemplate.queryForObject(SELECT_USER_BY_EMAIL, new Object[]{email}, new UserRowMapper(ticketManager));
     }
 
     @Override
     public List<User> getAll() {
-        return jdbcTemplate.query(SELECT_ALL_USER, new UserRowMapper());
+        return jdbcTemplate.query(SELECT_ALL_USER, new UserRowMapper(ticketManager));
     }
 }

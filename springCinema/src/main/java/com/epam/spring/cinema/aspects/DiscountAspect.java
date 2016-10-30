@@ -1,10 +1,12 @@
 package com.epam.spring.cinema.aspects;
 
+import com.epam.spring.cinema.dao.AspectCounterManager;
 import com.epam.spring.cinema.domain.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -20,7 +22,8 @@ public class DiscountAspect {
     private final String GET_DISCOUNT_BY_TYPE_PREFIX = "GET_DISCOUNT_BY_TYPE_";
     private final String GET_DISCOUNT_BY_TYPE_FOR_USER_PREFIX = "GET_DISCOUNT_BY_TYPE_FOR_USER_";
 
-    private Map<String, Long> countMap = new HashMap<>();
+    @Autowired
+    AspectCounterManager aspectCounterManager;
 
     @Pointcut("execution(* com.epam.spring.cinema.service.impl.discount.*.getDiscount(..))")
     private void getDiscount() {}
@@ -33,10 +36,10 @@ public class DiscountAspect {
             if (user != null) {
                 StringBuilder stringBuilder = new StringBuilder(GET_DISCOUNT_BY_TYPE_FOR_USER_PREFIX);
                 stringBuilder.append(discountName).append("_").append(user.getLogin());
-                AspectUtil.incMapItem(stringBuilder.toString(), countMap);
+                aspectCounterManager.incItem(stringBuilder.toString());
             }
             String key = GET_DISCOUNT_BY_TYPE_PREFIX + discountName;
-            AspectUtil.incMapItem(key, countMap);
+            aspectCounterManager.incItem(key);
         }
     }
 }

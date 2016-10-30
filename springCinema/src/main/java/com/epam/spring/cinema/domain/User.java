@@ -28,8 +28,6 @@ public class User {
 
     private List<Ticket> purchasedTickets = new ArrayList<Ticket>();
 
-    private List<Ticket> luckyTickets = new ArrayList<>();
-
     private String lastName;
 
     private String email;
@@ -82,14 +80,6 @@ public class User {
 
     public void setPurchasedTickets(List<Ticket> purchasedTickets) {
         this.purchasedTickets = purchasedTickets;
-    }
-
-    public List<Ticket> getLuckyTickets() {
-        return luckyTickets;
-    }
-
-    public void setLuckyTickets(List<Ticket> luckyTickets) {
-        this.luckyTickets = luckyTickets;
     }
 
     public LocalDate getBirthday() {

@@ -19,7 +19,7 @@ public interface TicketManager {
 
     List<Ticket> getAll();
 
-    List<Ticket> getByEventAndDateTime(Event event, LocalDateTime dateTime);
+    List<Ticket> getTicketByEventId(Long eventId);
 
     List<Ticket> getTicketByUserLogin(String login);
 }

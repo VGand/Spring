@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private UserManager userManager;
 
     @Override
-    public void add(String firstName, String lastName, String email, String login, LocalDate birthday) {
+    public User add(String firstName, String lastName, String email, String login, LocalDate birthday) {
         User user = ApplicationContextProvider.getApplicationContext().getBean("user", User.class);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
         user.setLogin(login);
         user.setBirthday(birthday);
         save(user);
+
+        return user;
     }
 
     public void save(User user) {
