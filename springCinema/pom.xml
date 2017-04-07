@@ -7,7 +7,7 @@
     <groupId>com.epam.spring</groupId>
     <artifactId>springCinema</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>springCinema</name>
 
     <properties>
@@ -43,9 +43,19 @@
             <version>${spring.ver}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6_g</artifactId>
-            <version>11.2.0.2.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 
@@ -73,20 +83,10 @@
                 </executions>
             </plugin>
 
-            <!-- make the jar executable by adding a Main-Class and Class-Path to the manifest -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.epam.spring.cinema.MainApp</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -97,5 +97,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <finalName>springCinema</finalName>
     </build>
 </project>

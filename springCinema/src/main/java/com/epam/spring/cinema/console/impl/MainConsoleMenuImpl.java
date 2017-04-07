@@ -2,19 +2,17 @@ package com.epam.spring.cinema.console.impl;
 
 import com.epam.spring.cinema.CinemaConstants;
 import com.epam.spring.cinema.console.ConsoleMenu;
+import com.epam.spring.cinema.domain.LoginBean;
 import com.epam.spring.cinema.service.LoginService;
 import com.epam.spring.cinema.service.UserService;
 import com.epam.spring.cinema.session.Role;
 import com.epam.spring.cinema.session.Session;
 import com.epam.spring.cinema.util.CinemaDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 /**
  * Created by Andrey_Vaganov on 5/10/2016.
@@ -79,7 +77,7 @@ public class MainConsoleMenuImpl implements ConsoleMenu {
                         String login;
                         System.out.print("Введите логин: ");
                         login = scanner.next();
-                        boolean result = loginService.login(login);
+                        boolean result = loginService.login(new LoginBean(login, null));
                         if (result) {
                             System.out.println("Добро пожаловать: " + Session.currentSession().getUserLogin());
                             if (Session.currentSession().getRole() == Role.ADMIN) {
