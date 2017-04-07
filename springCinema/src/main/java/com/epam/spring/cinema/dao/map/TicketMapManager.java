@@ -47,12 +47,12 @@ public class TicketMapManager implements TicketManager {
         return new ArrayList<Ticket>(mapDB.getTicketMap().values());
     }
 
-    public List<Ticket> getByEventAndDateTime(Event event, LocalDateTime dateTime) {
+    public List<Ticket> getTicketByEventId(Long eventId) {
         List<Ticket> tickets= new ArrayList<Ticket>();
-        if (event != null && dateTime != null) {
+        if (eventId != null) {
             for (Map.Entry<Long, Ticket> entry : mapDB.getTicketMap().entrySet()) {
                 Ticket ticket = entry.getValue();
-                if (ticket != null && event.equals(ticket.getEvent()) && dateTime.compareTo(ticket.getDateTime()) == 0) {
+                if (ticket != null && eventId.equals(ticket.getEvent().getId())) {
                     tickets.add(ticket);
                 }
             }

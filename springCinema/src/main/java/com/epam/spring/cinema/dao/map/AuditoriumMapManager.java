@@ -5,10 +5,8 @@ import com.epam.spring.cinema.domain.Auditorium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * Created by Andrey Vaganov on 09.05.2016.
@@ -52,5 +50,15 @@ public class AuditoriumMapManager implements AuditoriumManager {
 
     public List<Auditorium> getAll() {
         return new ArrayList<Auditorium>(mapDB.getAuditoriumMap().values());
+    }
+
+    @Override
+    public NavigableSet<LocalDateTime> getAirDatesByEventId(Long eventId) {
+        return null;
+    }
+
+    @Override
+    public NavigableMap<LocalDateTime, Auditorium> getAuditoriumMapByEventId(Long eventId) {
+        return null;
     }
 }

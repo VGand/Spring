@@ -19,7 +19,7 @@ public class UserMapManager implements UserManager {
     private MapDB mapDB;
 
     @Autowired
-    private UserMapManager(@Qualifier("administrator") User administrator, MapDB mapDB) {
+    public UserMapManager(@Qualifier("administrator") User administrator, MapDB mapDB) {
         this.mapDB = mapDB;
         this.mapDB.getUserMap().put(administrator.getLogin(), administrator);
     }

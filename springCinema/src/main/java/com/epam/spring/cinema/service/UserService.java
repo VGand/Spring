@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    void add(String firstName, String lastName, String email, String login, LocalDate birthday);
+    User add(String firstName, String lastName, String email, String login, LocalDate birthday);
 
     void save(User user);
 

@@ -1,5 +1,6 @@
 package com.epam.spring.cinema.service.impl;
 
+import com.epam.spring.cinema.dao.TicketManager;
 import com.epam.spring.cinema.domain.*;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.DiscountService;
@@ -22,6 +23,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private TicketManager ticketManager;
 
     @Autowired
     private DiscountService discountService;
@@ -75,6 +79,7 @@ public class BookingServiceImpl implements BookingService {
 
     public Boolean bookTicket(List<Ticket> tickets) {
         for(Ticket ticket : tickets) {
+            ticket.setLucky(Boolean.FALSE);
             Set<Long> ticketSet = new HashSet<>();
             ticketSet.add(ticket.getSeat());
 
@@ -85,6 +90,8 @@ public class BookingServiceImpl implements BookingService {
             if (ticket.getUser() != null) {
                 ticket.getUser().getPurchasedTickets().add(ticket);
             }
+
+            ticketManager.save(ticket);
         }
         return null;
     }

@@ -11,13 +11,19 @@ public class Ticket {
 
     private User user;
 
+    private String userLogin;
+
     private Event event;
+
+    private Long eventId;
 
     private LocalDateTime dateTime;
 
     private Long seat;
 
     private Double ticketPrice;
+
+    private Boolean isLucky;
 
     public Long getId() {
         return id;
@@ -65,6 +71,30 @@ public class Ticket {
 
     public void setTicketPrice(Double ticketPrice) {
         this.ticketPrice = ticketPrice;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
+    public Boolean getLucky() {
+        return isLucky;
+    }
+
+    public void setLucky(Boolean lucky) {
+        isLucky = lucky;
     }
 
     @Override
