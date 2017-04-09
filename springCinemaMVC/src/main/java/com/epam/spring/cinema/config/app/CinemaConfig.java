@@ -1,0 +1,132 @@
+package com.epam.spring.cinema.config.app;
+
+import com.epam.spring.cinema.dao.*;
+import com.epam.spring.cinema.dao.map.*;
+import com.epam.spring.cinema.domain.Auditorium;
+import com.epam.spring.cinema.domain.User;
+import com.epam.spring.cinema.session.Role;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Created by Andrey_Vaganov on 15.05.2016.
+ */
+@Configuration
+@EnableAspectJAutoProxy
+public class CinemaConfig {
+
+    @Autowired
+    private Environment env;
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
+    public MapDB mapDB() {
+        return new MapDB();
+    }
+
+    /*@Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(driverManagerDataSource());
+    }
+
+    @Bean
+    public DataSource driverManagerDataSource() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+        driverManagerDataSource.setUrl(env.getProperty("jdbc.url"));
+        driverManagerDataSource.setUsername(env.getProperty("jdbc.username"));
+        driverManagerDataSource.setPassword(env.getProperty("jdbc.password"));
+        return driverManagerDataSource;
+    }*/
+
+    @Bean
+    public Auditorium firstAuditorium() {
+        Auditorium auditorium = new Auditorium();
+
+        auditorium.setName(env.getProperty("auditoium1.name"));
+        auditorium.setNumberOfSeats(Long.parseLong(env.getProperty("auditoium1.numberOfSeats")));
+
+        Set<Long> vipSeats = new HashSet<Long>();
+        String vipSeatsStr = env.getProperty("auditoium1.vipSeats");
+        if (vipSeatsStr != null) {
+            List<Long> longList = Arrays.asList(vipSeatsStr.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+            vipSeats.addAll(longList);
+        }
+        auditorium.setVipSeats(vipSeats);
+        return auditorium;
+    }
+
+    @Bean
+    public Auditorium secondAuditorium() {
+        Auditorium auditorium = new Auditorium();
+
+        auditorium.setName(env.getProperty("auditoium2.name"));
+        auditorium.setNumberOfSeats(Long.parseLong(env.getProperty("auditoium2.numberOfSeats")));
+
+        Set<Long> vipSeats = new HashSet<Long>();
+        String vipSeatsStr = env.getProperty("auditoium2.vipSeats");
+        if (vipSeatsStr != null) {
+            List<Long> longList = Arrays.asList(vipSeatsStr.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+            vipSeats.addAll(longList);
+        }
+        auditorium.setVipSeats(vipSeats);
+        return auditorium;
+    }
+
+    @Bean
+    public AuditoriumManager auditoriumManager() {
+        List<Auditorium> auditoriums = new ArrayList<>();
+        auditoriums.add(firstAuditorium());
+        auditoriums.add(secondAuditorium());
+        return new AuditoriumMapManager(auditoriums, mapDB());
+    }
+
+    @Bean
+    public EventManager eventManager() {
+        return new EventMapManager();
+    }
+
+    @Bean
+    public TicketManager ticketManager() {
+        return new TicketMapManager();
+    }
+
+    @Bean
+    public UserManager userManager() {
+        return new UserMapManager(administrator(), mapDB());
+    }
+
+    @Bean
+    AspectCounterManager aspectCounterManager() {
+        return new AspectCounterMapManager();
+    }
+
+    @Bean
+    public User administrator() {
+        String login = env.getProperty("adminLogin");
+        Role role = Role.getRoleBySysName(env.getProperty("adminRole"));
+        User user = new User(login, role);
+        return user;
+    }
+
+    @Bean
+    @Scope(BeanDefinition.SCOPE_PROTOTYPE)
+    public User user() {
+        Role role = Role.getRoleBySysName(env.getProperty("userRole"));
+        User user = new User(role);
+        return user;
+    }
+}
