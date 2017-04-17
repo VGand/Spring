@@ -42,21 +42,21 @@
         <div>
             <h2 align="center">View Tickets</h2>
         </div>
+        <a href="soldTicketPrint/${model.event.id}">Print sold ticket</a>
         <div>
             <table>
                 <#list model["event"].ticketList as ticket>
-                    <tr>
-                        <td>Number of seat: ${ticket.seat}</td>
-                        <td>Price: ${ticket.ticketPrice}</td>
-                        <#if ticket.userLogin??>
-                            <td style="color: red">sold</td>
-                        <#else>
+                    <#if ticket.userLogin??>
+                    <#else>
+                        <tr>
+                            <td>Number of seat: ${ticket.seat}</td>
+                            <td>Price: ${ticket.ticketPrice}</td>
                             <td style="color: green"><a href="buy/${ticket.id}">buy</a></td>
-                        </#if>
-                        <#if ticket.vip>
-                            <td style="color: red">VIP</td>
-                        </#if>
-                    </tr>
+                            <#if ticket.vip>
+                                <td style="color: red">VIP</td>
+                            </#if>
+                        </tr>
+                    </#if>
                 </#list>
             </table>
         </div>

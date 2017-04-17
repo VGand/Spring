@@ -58,7 +58,7 @@ public class AuditoriumMapManager implements AuditoriumManager {
     }
 
     @Override
-    public NavigableMap<LocalDateTime, Auditorium> getAuditoriumMapByEventId(Long eventId) {
+    public Auditorium getAuditoriumByEventId(Long eventId) {
         return null;
     }
 }

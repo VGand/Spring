@@ -6,6 +6,21 @@
 <div id="header">
     <h2 align="center">All Events</h2>
 </div>
+<div>
+         <form name="uploadEvents" action="upload" method="post" enctype="multipart/form-data">
+             <table width="600px">
+                 <tr>
+                     <td>choose file to upload events</td>
+                     <td><input type="file" name="file", accept="text/xml"></td>
+                 </tr>
+                 <tr>
+                     <td>
+                         <input type="submit" value="   Upload   " />
+                     </td>
+                 </tr>
+             <table>
+         </form>
+</div>
 <div id="content">
     <a href="add">Create</a>
     <table  width="800px">

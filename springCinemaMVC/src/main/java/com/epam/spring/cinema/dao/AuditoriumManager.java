@@ -4,7 +4,6 @@ import com.epam.spring.cinema.domain.Auditorium;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.NavigableSet;
 
 /**
@@ -20,5 +19,5 @@ public interface AuditoriumManager {
 
     NavigableSet<LocalDateTime> getAirDatesByEventId(Long eventId);
 
-    NavigableMap<LocalDateTime, Auditorium> getAuditoriumMapByEventId(Long eventId);
+    Auditorium getAuditoriumByEventId(Long eventId);
 }
