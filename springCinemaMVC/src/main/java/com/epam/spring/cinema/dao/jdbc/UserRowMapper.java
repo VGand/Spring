@@ -3,10 +3,7 @@ package com.epam.spring.cinema.dao.jdbc;
 import com.epam.spring.cinema.dao.TicketManager;
 import com.epam.spring.cinema.domain.Ticket;
 import com.epam.spring.cinema.domain.User;
-import com.epam.spring.cinema.session.Role;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -31,8 +28,9 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         String login = resultSet.getString("login");
         String roleSysName = resultSet.getString("roleSysName");
+        String password = resultSet.getString("password");
 
-        User user = new User(login, Role.getRoleBySysName(roleSysName));
+        User user = new User(login, password, roleSysName);
         user.setFirstName(resultSet.getString("firstName"));
         user.setLastName(resultSet.getString("lastName"));
         user.setEmail(resultSet.getString("email"));

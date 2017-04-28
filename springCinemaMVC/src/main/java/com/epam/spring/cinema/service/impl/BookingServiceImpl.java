@@ -1,6 +1,7 @@
 package com.epam.spring.cinema.service.impl;
 
 import com.epam.spring.cinema.dao.TicketManager;
+import com.epam.spring.cinema.dao.UserAccountManager;
 import com.epam.spring.cinema.domain.*;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.DiscountService;
@@ -8,8 +9,9 @@ import com.epam.spring.cinema.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +28,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private TicketManager ticketManager;
+
+    @Autowired
+    private UserAccountManager userAccountManager;
 
     @Autowired
     private DiscountService discountService;
@@ -56,7 +61,11 @@ public class BookingServiceImpl implements BookingService {
         return totalCost;
     }
 
+    @Transactional(value="jdbcTransactionManager", propagation = Propagation.REQUIRED)
     public Boolean bookTicket(List<Ticket> tickets, User user) {
+
+        UserAccount userAccount = userAccountManager.get(user.getLogin());
+
         for(Ticket ticket : tickets) {
             ticket.setLucky(Boolean.FALSE);
             Set<Long> ticketSet = new HashSet<>();
@@ -64,13 +73,19 @@ public class BookingServiceImpl implements BookingService {
 
             Event event = eventService.getById(ticket.getEventId());
             Double ticketPrice = getTicketsPrice(event, user, ticketSet);
-            ticket.setTicketPrice(ticketPrice);
 
-            ticket.setUserLogin(user.getLogin());
+            if (ticketPrice <= userAccount.getAvailableAmount()) {
+                ticket.setTicketPrice(ticketPrice);
 
-            user.getPurchasedTickets().add(ticket);
+                ticket.setUserLogin(user.getLogin());
 
-            ticketManager.save(ticket);
+                user.getPurchasedTickets().add(ticket);
+
+                ticketManager.save(ticket);
+
+                userAccount.setAvailableAmount(userAccount.getAvailableAmount() - ticketPrice);
+                userAccountManager.save(userAccount);
+            }
         }
         return null;
     }

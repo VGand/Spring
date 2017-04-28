@@ -1,8 +1,6 @@
 package com.epam.spring.cinema.controllers;
 
-import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.domain.Event;
-import com.epam.spring.cinema.domain.EventRating;
 import com.epam.spring.cinema.domain.view.EventView;
 import com.epam.spring.cinema.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +27,7 @@ public class EventListController {
     public String getAll(@ModelAttribute("model") ModelMap model) {
         List<Event> events =  eventService.getAll();
         model.addAttribute("events", getEventViewListByEventList(events));
+
         return "eventsList";
     }
 

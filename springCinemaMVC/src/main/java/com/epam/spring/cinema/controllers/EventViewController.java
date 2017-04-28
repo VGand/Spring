@@ -7,8 +7,10 @@ import com.epam.spring.cinema.domain.User;
 import com.epam.spring.cinema.domain.view.EventView;
 import com.epam.spring.cinema.service.BookingService;
 import com.epam.spring.cinema.service.EventService;
+import com.epam.spring.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,8 +39,8 @@ public class EventViewController {
     BookingService bookingService;
 
     @Autowired
-    @Qualifier("administrator")
-    User administrator;
+    UserService userService;
+
 
     @RequestMapping(value = "/{eventId}", method = RequestMethod.GET)
     public String getById(@ModelAttribute("model") ModelMap model,
@@ -55,9 +57,13 @@ public class EventViewController {
 
     @RequestMapping(value = "/buy/{ticketId}", method = RequestMethod.GET)
     public String buy(@PathVariable("ticketId") Long ticketId) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userService.getBuLogin(auth.getName());
         Ticket ticket = ticketManager.getTicketById(ticketId);
 
-        bookingService.bookTicket(Arrays.asList(ticket), administrator);
+        bookingService.bookTicket(Arrays.asList(ticket), user);
 
         return "redirect:/view/" + ticket.getEventId();
     }

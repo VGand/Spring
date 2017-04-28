@@ -17,11 +17,11 @@ import java.util.List;
 @Resource
 public class UserJdbcManager implements UserManager {
 
-    private final String SAVE_QUERY = "INSERT INTO CINEMA_USER (LOGIN, FIRST_NAME, LAST_NAME, EMAIL, ROLE_SYS_NAME, BIRTHDAY) VALUES (?, ?, ?, ?, ?, ?)";
+    private final String SAVE_QUERY = "INSERT INTO CINEMA_USER (LOGIN, FIRST_NAME, LAST_NAME, EMAIL, ROLE_SYS_NAME, BIRTHDAY, PASSWORD) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String REMOVE_QUERY = "DELETE FROM CINEMA_USER WHERE LOGIN = ?";
-    private final String SELECT_USER_BY_LOGIN = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday FROM CINEMA_USER WHERE LOGIN = ?";
-    private final String SELECT_USER_BY_EMAIL = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday FROM CINEMA_USER WHERE EMAIL = ?";
-    private final String SELECT_ALL_USER = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday FROM CINEMA_USER";
+    private final String SELECT_USER_BY_LOGIN = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday, PASSWORD as password FROM CINEMA_USER WHERE LOGIN = ?";
+    private final String SELECT_USER_BY_EMAIL = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday, PASSWORD as password FROM CINEMA_USER WHERE EMAIL = ?";
+    private final String SELECT_ALL_USER = "SELECT LOGIN as login, FIRST_NAME as firstName, LAST_NAME as lastName, EMAIL as email, ROLE_SYS_NAME as roleSysName, BIRTHDAY as birthday, PASSWORD as password FROM CINEMA_USER";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -33,7 +33,7 @@ public class UserJdbcManager implements UserManager {
     public void save(User user) {
         Date birthday = Date.from(user.getBirthday().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         jdbcTemplate.update(SAVE_QUERY, user.getLogin(), user.getFirstName(), user.getLastName(), user.getEmail(),
-                user.getRole().getRoleSysName(), new java.sql.Date(birthday.getTime()));
+                user.getRole(), new java.sql.Date(birthday.getTime()), user.getPassword());
     }
 
     @Override

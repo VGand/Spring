@@ -4,7 +4,6 @@ import com.epam.spring.cinema.domain.Event;
 import com.epam.spring.cinema.domain.Ticket;
 import com.epam.spring.cinema.domain.User;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 

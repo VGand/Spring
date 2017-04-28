@@ -23,4 +23,9 @@ public class CinemaDateUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return date.format(formatter);
     }
+
+    public static String dateToString(LocalDate date, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return date.format(formatter);
+    }
 }

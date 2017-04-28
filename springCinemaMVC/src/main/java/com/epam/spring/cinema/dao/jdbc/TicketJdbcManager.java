@@ -28,17 +28,17 @@ public class TicketJdbcManager implements TicketManager {
 
     @Override
     public void save(Ticket ticket) {
-        Long id = jdbcTemplate.queryForObject(GET_MAX_ID_QUERY, new Object[]{}, Long.class);
-        if (id == null ) {
-            id = 0L;
-        } else {
-            id = id + 1;
-        }
 
         if (ticket.getId() != null) {
             jdbcTemplate.update(UPDATE_TICKET_QUERY, ticket.getUserLogin(), ticket.getEventId(),
-                    ticket.getSeat(), ticket.getTicketPrice(), ticket.getLucky(), ticket.getVip(), id);
+                    ticket.getSeat(), ticket.getTicketPrice(), ticket.getLucky(), ticket.getVip(), ticket.getId());
         } else {
+            Long id = jdbcTemplate.queryForObject(GET_MAX_ID_QUERY, new Object[]{}, Long.class);
+            if (id == null ) {
+                id = 0L;
+            } else {
+                id = id + 1;
+            }
             jdbcTemplate.update(INSERT_TICKET_QUERY, id, ticket.getUserLogin(), ticket.getEventId(),
                     ticket.getSeat(), ticket.getTicketPrice(), ticket.getLucky(), ticket.getVip());
         }

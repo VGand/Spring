@@ -1,5 +1,7 @@
 package com.epam.spring.cinema.domain;
 
+import com.epam.spring.cinema.session.Role;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,17 +9,17 @@ import java.util.List;
 /**
  * Created by Andrey Vaganov on 09.05.2016.
  */
-public class User {
+public class CinemaUser {
 
-    public User() {
+    public CinemaUser() {
 
     }
 
-    public User(String role) {
-        this.role = role;
+    public CinemaUser(Role role) {
+        this.role = role.getRoleSysName();
     }
 
-    public User(String login, String password, String role) {
+    public CinemaUser(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -33,11 +35,11 @@ public class User {
 
     private String login;
 
+    private String password;
+
     private String role;
 
     private LocalDate birthday;
-
-    private String password;
 
     public String getPassword() {
         return password;
@@ -98,18 +100,18 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (!(o instanceof CinemaUser)) return false;
 
-        User user = (User) o;
+        CinemaUser cinemaUser = (CinemaUser) o;
 
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (purchasedTickets != null ? !purchasedTickets.equals(user.purchasedTickets) : user.purchasedTickets != null)
+        if (firstName != null ? !firstName.equals(cinemaUser.firstName) : cinemaUser.firstName != null) return false;
+        if (purchasedTickets != null ? !purchasedTickets.equals(cinemaUser.purchasedTickets) : cinemaUser.purchasedTickets != null)
             return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (!login.equals(user.login)) return false;
-        if (role != user.role) return false;
-        return birthday != null ? birthday.equals(user.birthday) : user.birthday == null;
+        if (lastName != null ? !lastName.equals(cinemaUser.lastName) : cinemaUser.lastName != null) return false;
+        if (email != null ? !email.equals(cinemaUser.email) : cinemaUser.email != null) return false;
+        if (!login.equals(cinemaUser.login)) return false;
+        if (role != cinemaUser.role) return false;
+        return birthday != null ? birthday.equals(cinemaUser.birthday) : cinemaUser.birthday == null;
 
     }
 

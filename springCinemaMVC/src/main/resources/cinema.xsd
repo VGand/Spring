@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://springCinema.com/cinema-web-service">
+
+
+  <xs:element name="user">  
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+		  <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+		  <xs:element name="email" type="xs:string" minOccurs="0"/>
+		  <xs:element name="login" type="xs:string" minOccurs="0"/>
+		  <xs:element name="role" type="xs:string" minOccurs="0"/>
+		  <xs:element name="birthday" type="xs:string" minOccurs="0"/>
+		  <xs:element name="password" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="event">
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="id" type="xs:long" minOccurs="0"/>
+		  <xs:element name="name" type="xs:string" minOccurs="0"/>
+		  <xs:element name="date" type="xs:string" minOccurs="0"/>
+		  <xs:element name="basePrice" type="xs:double"/>
+		  <xs:element name="rating" type="xs:string" minOccurs="0"/>
+		  <xs:element name="description" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="getEventRequest">
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="name" type="xs:string" minOccurs="0"/>
+		  <xs:element name="id" type="xs:long" minOccurs="0"/>
+		</xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="removeEventRequest">
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="id" type="xs:long" minOccurs="0"/>
+		</xs:sequence>
+	  </xs:complexType>
+  </xs:element>
+
+	<xs:element name="EventResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="status" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="login" type="xs:string" minOccurs="0"/>
+				<xs:element name="email" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="UserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="status" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+

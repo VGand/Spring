@@ -5,7 +5,6 @@ import com.epam.spring.cinema.dao.jdbc.*;
 import com.epam.spring.cinema.dao.map.MapDB;
 import com.epam.spring.cinema.domain.Auditorium;
 import com.epam.spring.cinema.domain.User;
-import com.epam.spring.cinema.session.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +16,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.*;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
  */
 @Configuration
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class CinemaConfig {
 
     @Autowired
@@ -80,6 +83,12 @@ public class CinemaConfig {
         return auditorium;
     }
 
+    @Bean(name = "jdbcTransactionManager")
+    public PlatformTransactionManager jdbcTransactionManager() {
+        PlatformTransactionManager jdbcTransactionManager = new DataSourceTransactionManager(driverManagerDataSource());
+        return jdbcTransactionManager;
+    }
+
     @Bean
     public Auditorium secondAuditorium() {
         Auditorium auditorium = new Auditorium();
@@ -126,17 +135,23 @@ public class CinemaConfig {
     }
 
     @Bean
+    public UserAccountManager getUserAccountManager() {
+        return new UserAccountJdbcManager();
+    }
+
+    @Bean
     public User administrator() {
         String login = env.getProperty("adminLogin");
-        Role role = Role.getRoleBySysName(env.getProperty("adminRole"));
-        User user = new User(login, role);
+        String role = env.getProperty("adminRole");
+        String password = env.getProperty("admPassword");
+        User user = new User(login, password, role);
         return user;
     }
 
     @Bean
     @Scope(BeanDefinition.SCOPE_PROTOTYPE)
     public User user() {
-        Role role = Role.getRoleBySysName(env.getProperty("userRole"));
+        String role = env.getProperty("userRole");
         User user = new User(role);
         return user;
     }

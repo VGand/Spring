@@ -6,6 +6,9 @@
 <div id="header">
     <h2 align="center">All Events</h2>
 </div>
+<div style="float:right">
+    <a href="/springCinema/logout"> Logout</a>
+</div>
 <div>
          <form name="uploadEvents" action="upload" method="post" enctype="multipart/form-data">
              <table width="600px">

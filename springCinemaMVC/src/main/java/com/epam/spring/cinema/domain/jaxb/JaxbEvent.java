@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JaxbEvent {
 
+    private Long id;
+
     private String name;
 
     @XmlJavaTypeAdapter(type=LocalDateTime.class,
@@ -24,6 +26,14 @@ public class JaxbEvent {
     private String rating;
 
     private String description;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

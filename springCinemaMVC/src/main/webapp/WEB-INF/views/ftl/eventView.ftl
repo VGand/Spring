@@ -6,6 +6,8 @@
     <body>
         <div>
             <h2 align="center">View Event</h2>
+        </div><div style="float:right">
+            <a href="/springCinema/logout"> Logout</a>
         </div>
         <a href="/springCinema/">List</a>
         <div>
