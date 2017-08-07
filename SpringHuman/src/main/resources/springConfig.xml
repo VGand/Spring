@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean name="zina" class="com.epam.human.service.Human" scope="prototype" init-method="humanInit">
+        <property name="firstName" value="Zina"/>
+        <property name="lastName" value="Michalna"/>
+        <property name="address" ref="izhevsk"/>
+    </bean>
+
+    <bean name="nina" class="com.epam.human.service.Human" parent="zina">
+        <property name="firstName" value="Nina"/>
+        <property name="lastName" value="Michalna"/>
+        <property name="address" ref="samara"/>
+    </bean>
+
+    <bean name="izhevsk" class="com.epam.human.service.Address">
+        <constructor-arg value="Izhevsk"/>
+    </bean>
+
+    <bean name="samara" class="com.epam.human.service.Address">
+        <constructor-arg value="Samara"/>
+    </bean>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.epam.human"/>
+
+</beans>
